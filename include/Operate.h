@@ -1,13 +1,9 @@
 #ifndef MATRIX_OPERATE_H
 #define MATRIX_OPERATE_H
 
-#include "BasicOperate.h"
-#include "Inner.h"
-#include "Determinant.h"
+#include "LinearAlgebra.h"
 #include "Conv.h"
-#include "Inv.h"
 #include "Sum.h"
-#include "CrossProduct.h"
 
 namespace Matrix {
 	/*---------------- ½»»»Êý¾Ý ----------------*/
@@ -22,7 +18,8 @@ namespace Matrix {
 	/*
 	 * Binarization
 	 */
-	inline Mat<>& binarization(Mat<>& ans, Mat<>& a, double threshold = 0.5) {
+	template <typename T>
+	inline Mat<T>& binarization(Mat<T>& ans, Mat<T>& a, double threshold = 0.5) {
 		ans.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)

@@ -12,147 +12,159 @@ namespace Matrix {
 	******************************************************************************/
 
 	/*---------------- max/min ----------------*/
-	inline double max(Mat<>& a) {
-		double ans = a[0];
+	template <typename T>
+	inline T max(Mat<T>& a) {
+		T res = a[0];
 		for (int i = 1; i < a.size(); i++)
-			ans = ans >= a[i] ? ans : a[i];
-		return ans;
+			res = res >= a[i] ? res : a[i];
+		return res;
 	}
 
-	inline double min(Mat<>& a) {
-		double ans = a[0];
+	template <typename T>
+	inline T min(Mat<T>& a) {
+		T res = a[0];
 		for (int i = 1; i < a.size(); i++)
-			ans = ans <= a[i] ? ans : a[i];
-		return ans;
+			res = res <= a[i] ? res : a[i];
+		return res;
 	}
 
-	inline double max(vector<double>& a) {
-		double ans = a[0];
+	template <typename T>
+	inline T max(vector<T>& a) {
+		T res = a[0];
 		for (int i = 1; i < a.size(); i++)
-			ans = ans >= a[i] ? ans : a[i];
-		return ans;
+			res = res >= a[i] ? res : a[i];
+		return res;
 	}
 
-	inline double min(vector<double>& a) {
-		double ans = a[0];
+	template <typename T>
+	inline T min(vector<T>& a) {
+		T res = a[0];
 		for (int i = 1; i < a.size(); i++)
-			ans = ans <= a[i] ? ans : a[i];
-		return ans;
+			res = res <= a[i] ? res : a[i];
+		return res;
 	}
 
-	inline double max(Mat<>& a, int& index) {
-		double ans = a[0];
+	template <typename T>
+	inline T max(Mat<T>& a, int& index) {
+		T res = a[0];
 		index = 0;
 
 		for (int i = 1; i < a.size(); i++)
-			if (ans < a[i]) {
-				ans = a[i];
+			if (res < a[i]) {
+				res = a[i];
 				index = i;
 			}
-		return ans;
+		return res;
 	}
 
-	inline double min(Mat<>& a, int& index) {
-		double ans = a[0];
+	template <typename T>
+	inline T min(Mat<T>& a, int& index) {
+		T res = a[0];
 		index = 0;
 
 		for (int i = 1; i < a.size(); i++)
-			if (ans > a[i]) {
-				ans = a[i];
+			if (res > a[i]) {
+				res = a[i];
 				index = i;
 			}
-		return ans;
+		return res;
 	}
 
 	// 行/列
-	inline Mat<>& max(Mat<>& ans, Mat<>& a, int index) {
+	template <typename T>
+	inline Mat<T>& max(Mat<T>& res, Mat<T>& a, int index) {
 		if (index == 0) {
-			ans.alloc(a.rows);
+			res.alloc(a.rows);
 
 			for (int x = 0; x < a.rows; x++)
-				ans[x] = a(x, 0);
+				res[x] = a(x, 0);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					ans(x) = ans(x) >= a(x, y) ? ans(x) : a(x, y);
-			return ans;
+					res(x) = res(x) >= a(x, y) ? res(x) : a(x, y);
+			return res;
 		}
 		else {
-			ans.alloc(1, a.cols);
+			res.alloc(1, a.cols);
 
 			for (int y = 0; y < a.cols; y++)
-				ans[y] = a(0, y);
+				res[y] = a(0, y);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					ans(y) = ans(y) >= a(x, y) ? ans(y) : a(x, y);
-			return ans;
+					res(y) = res(y) >= a(x, y) ? res(y) : a(x, y);
+			return res;
 		}
 	}
 
-	inline Mat<>& min(Mat<>& ans, Mat<>& a, int index) {
+	template <typename T>
+	inline Mat<T>& min(Mat<T>& res, Mat<T>& a, int index) {
 		if (index == 0) {
-			ans.alloc(a.rows);
+			res.alloc(a.rows);
 
 			for (int x = 0; x < a.rows; x++)
-				ans[x] = a(x, 0);
+				res[x] = a(x, 0);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					ans(x) = ans(x) <= a(x, y) ? ans(x) : a(x, y);
-			return ans;
+					res(x) = res(x) <= a(x, y) ? res(x) : a(x, y);
+			return res;
 		}
 		else {
-			ans.alloc(1, a.cols);
+			res.alloc(1, a.cols);
 
 			for (int y = 0; y < a.cols; y++)
-				ans[y] = a(0, y);
+				res[y] = a(0, y);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					ans(y) = ans(y) <= a(x, y) ? ans(y) : a(x, y);
-			return ans;
+					res(y) = res(y) <= a(x, y) ? res(y) : a(x, y);
+			return res;
 		}
 	}
 
 	/*---------------- 求和 ----------------*/
-	inline double sum(Mat<>& a) {
-		double ans = 0;
+	template <typename T>
+	inline T sum(Mat<T>& a) {
+		T res = 0;
 		for (int i = 1; i < a.size(); i++)
-			ans += a[i];
-		return ans;
+			res += a[i];
+		return res;
 	}
 
-	inline Mat<>& sum(Mat<>& ans, Mat<>& a, int dim) {
+	template <typename T>
+	inline Mat<T>& sum(Mat<T>& res, Mat<T>& a, int dim) {
 		if (dim == 0) {				//对每一列求和
-			Mat<> ansTmp(1, a.cols);
+			Mat<T> resTmp(1, a.cols);
+
 			for (int j = 0; j < a.cols; j++)
 				for (int i = 0; i < a.rows; i++)
-					ansTmp[j] += a(i, j);
+					resTmp[j] += a(i, j);
 
-			ans = std::move(ansTmp);
-			return ans;
+			res = std::move(resTmp);
+			return res;
 		}
 
 		if (dim == 1) {				//对每一行求和
-			Mat<> ansTmp(a.rows);
+			Mat<T> resTmp(a.rows);
 			for (int i = 0; i < a.rows; i++)
 				for (int j = 0; j < a.cols; j++)
-					ansTmp[i] += a(i, j);
+					resTmp[i] += a(i, j);
 
-			ans = std::move(ansTmp);
-			return ans;
+			res = std::move(resTmp);
+			return res;
 		}
 		exit(-1);
-		return ans;
+		return res;
 	}
 
 	/*---------------- 求积 ----------------*/
-	inline double product(Mat<>& a) {
-		double ans = 0;
+	template <typename T>
+	inline T product(Mat<T>& a) {
+		T res = 0;
 		for (int i = 1; i < a.size(); i++)
-			ans *= a[i];
-		return ans;
+			res *= a[i];
+		return res;
 	}
 
 }

@@ -5,8 +5,8 @@ using namespace std;
 using namespace Matrix;
 
 void mulTest() {
-	Mat<double> A(10);
-	Mat<double> B(1, 10);
+	Mat<float> A(10);
+	Mat<float> B(1, 10);
 
 	A = 1;
 	for (size_t i = 0; i < 10; i++)
@@ -24,6 +24,8 @@ void mulTest() {
 		}
 		printf("\n");
 	}
+
+	printf("%.1f ", Matrix::sum(A));
 }
 
 int main() {

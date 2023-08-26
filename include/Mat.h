@@ -5,7 +5,7 @@
 #include <vector>
 #include <initializer_list>
 
-template <class T = double>
+template <class T>
 class Mat {
 public:
 	/*
@@ -160,7 +160,7 @@ public:
 		return res;
 	}
 
-	inline Mat<>& setSubmatrix(Mat<>& subMatrix, int rowSt, int colSt, int rowEd = -1, int colEd = -1) {
+	inline Mat<T>& setSubmatrix(Mat<T>& subMatrix, int rowSt, int colSt, int rowEd = -1, int colEd = -1) {
 		if (rowSt < 0 || rowEd >= subMatrix.rows ||
 			colSt < 0 || colEd >= subMatrix.cols) {
 			throw std::out_of_range("Invalid matrix indices");

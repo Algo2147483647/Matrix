@@ -12,22 +12,16 @@
 * 
 ******************************************************************************/
 namespace Matrix{
-void LUP(Mat<>& M, Mat<>& L, Mat<>& U, Mat<>& P);	// LUP 
-													// LU  
-													// GGT 
-void QR (Mat<>& M, Mat<>& Q, Mat<>& R);				// QR  
-void SVD(Mat<>& M, Mat<>& U, Mat<>& S, Mat<>& V);	// SVD 
-													// FG  
-
 /*
  * LUP lower–upper decomposition
  */
-inline void LUP(Mat<>& a, Mat<>& L, Mat<>& U, Mat<>& P) {
+template <typename T>
+	inline void LUP(Mat<T>& a, Mat<T>& L, Mat<T>& U, Mat<T>& P) {
     if (a.rows != a.cols)
         exit(-1);
 
     int n = a.rows;
-    Mat<> A(a);
+    Mat<T> A(a);
     P.zero(n);
     U.zero(n, n);
     L.zero(n, n);
@@ -71,12 +65,13 @@ inline void LUP(Mat<>& a, Mat<>& L, Mat<>& U, Mat<>& P) {
 /*
  *  QR decomposition, orthogonal triangular decomposition
  */
-inline void QR(Mat<>& A, Mat<>& Q, Mat<>& R) {
+template <typename T>
+	inline void QR(Mat<T>& A, Mat<T>& Q, Mat<T>& R) {
     R = A;
     Q.zero(A.rows);
     E(Q);
 
-    Mat<> v, e, Ti, T(A.rows, A.cols);
+    Mat<T> v, e, Ti, Tm(A.rows, A.cols);
     for (int i = 0; i < A.rows; i++) {
         v.getSubmatrix(R, i, R.rows - 1, i, i);
         e.zero(v.rows);
@@ -87,11 +82,11 @@ inline void QR(Mat<>& A, Mat<>& Q, Mat<>& R) {
         normalize(v);
 
         reflect(v, Ti);
-        E(T);
-        Ti.setSubmatrix(T, i, i);
+        E(Tm);
+        Ti.setSubmatrix(Tm, i, i);
 
-        mul(R, T, R);
-        mul(Q, T, Q);
+        mul(R, Tm, R);
+        mul(Q, Tm, Q);
     }
 
     transpose(Q, Q);

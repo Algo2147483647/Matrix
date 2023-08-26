@@ -11,8 +11,9 @@ namespace Matrix {
 * 
 ******************************************************************************/
 	/* 卷积 */
-	inline Mat<>& conv(Mat<>& ans, Mat<>& a, Mat<>& b, int padding = 0, int stride = 1) {
-		Mat<> ansTmp(
+	template <typename T>
+	inline Mat<T>& conv(Mat<T>& ans, Mat<T>& a, Mat<T>& b, int padding = 0, int stride = 1) {
+		Mat<T> ansTmp(
 			(a.rows - b.rows + 2 * padding) / stride + 1,
 			(a.cols - b.cols + 2 * padding) / stride + 1
 		);

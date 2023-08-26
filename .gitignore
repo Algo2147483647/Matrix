@@ -47,7 +47,7 @@ out/
 
 # macOS generated
 .DS_Store
-.AppleDouble
+.AppleT
 .LSOverride
 
 # Windows generated

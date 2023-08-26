@@ -46,8 +46,8 @@ just like ```std::vector<T>```
 ## Special matrix construction
 * $\boldsymbol I$ ```E(Mat&)```
 * $\boldsymbol 1$ ```ones(Mat&)```
-* random matrix ```rands(Mat&, double st, double ed)```
-* linear spacing vector ```rands(Mat&, double xs, double xe, int n = 100)```
+* random matrix ```rands(Mat&, T st, T ed)```
+* linear spacing vector ```rands(Mat&, T xs, T xe, int n = 100)```
 * diagonal matrix ```diag(Mat&, Mat&)```
   
 ## Basic operations of matrix
@@ -66,8 +66,8 @@ just like ```std::vector<T>```
   * multiplication
     * $\boldsymbol M = \boldsymbol M_1 \times \boldsymbol M_2$ ```mul(Mat&, Mat&, Mat&)```
     * $\boldsymbol v = \boldsymbol M_1 \times \boldsymbol v_1$ ```mul(vector&, Mat&, vector&)```
-    * $\boldsymbol M = a \boldsymbol M_1$ ```mul(Mat&, double, Mat&)```
-    * $\boldsymbol v = a \boldsymbol v_1$ ```mul(Mat&, double, vector&)```
+    * $\boldsymbol M = a \boldsymbol M_1$ ```mul(Mat&, T, Mat&)```
+    * $\boldsymbol v = a \boldsymbol v_1$ ```mul(Mat&, T, vector&)```
   * multiplication of elements, Hadamard product 
     * $\boldsymbol M = \boldsymbol M_1 \odot \boldsymbol M_2$ ```elementMul(Mat&, Mat&, Mat&)```
     * $\boldsymbol v = \boldsymbol v_1 \odot \boldsymbol v_2$ ```elementMul(vector&, vector&, vector&)```
@@ -76,7 +76,7 @@ just like ```std::vector<T>```
     * for vector ```elementDiv(vector&, vector&, vector&)```
 
 ## Eigen-value, eigen-vector
-* eigen-value, eigen-vector $\lambda \boldsymbol v = \boldsymbol M \boldsymbol v$ ```eig(Mat& M, Mat& eigvec, Mat& eigvalue, double esp = 1E-4)```
+* eigen-value, eigen-vector $\lambda \boldsymbol v = \boldsymbol M \boldsymbol v$ ```eig(Mat& M, Mat& eigvec, Mat& eigvalue, T esp = 1E-4)```
 
 ## Inner product space
 * inner product 

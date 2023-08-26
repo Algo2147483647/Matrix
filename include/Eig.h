@@ -10,7 +10,8 @@ namespace Matrix {
 	*                    特征值/特征向量
 	*
 	******************************************************************************/
-	inline void eig(Mat<>& a, Mat<>& eigvec, Mat<>& eigvalue, double esp = 1E-4) {
+	template <typename T>
+	inline void eig(Mat<T>& a, Mat<T>& eigvec, Mat<T>& eigvalue, double esp = 1E-4) {
 		if (a.rows != a.cols)
 			return;
 
@@ -19,7 +20,7 @@ namespace Matrix {
 		eigvalue = a;
 		E(eigvec.zero(n, n));
 
-		Mat<> R, Rt;
+		Mat<T> R, Rt;
 
 		//[2] begin iteration
 		while (true) {
@@ -54,7 +55,7 @@ namespace Matrix {
 			R(q, q) = c;
 
 			transpose(Rt, R);
-			mul(eigvalue, Rt, eigvalue);			// Dj = Rjdouble Dj-1 Rj
+			mul(eigvalue, Rt, eigvalue);			// Dj = RjT Dj-1 Rj
 			mul(eigvalue, eigvalue, R);
 			mul(eigvec, eigvec, R);					// X = R Y
 		}

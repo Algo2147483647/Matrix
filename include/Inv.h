@@ -8,19 +8,20 @@
 namespace Matrix {
 
 /*---------------- Inverse ----------------*/
-	inline Mat<>& inv(Mat<>& ans, Mat<>& a) {
+	template <typename T>
+	inline Mat<T>& inv(Mat<T>& ans, Mat<T>& a) {
 		if (a.rows != a.cols)
 			exit(-1);
 
-		Mat<> tmp(a.rows, a.cols);
+		Mat<T> tmp(a.rows, a.cols);
 		int n = a.rows;
 
 		// LUP分解
-		Mat<> L, U, P;
+		Mat<T> L, U, P;
 		LUP(a, L, U, P);
 		
 		//对每一列
-		Mat<> b(n), x(n);
+		Mat<T> b(n), x(n);
 		for (int k = 0; k < n; k++) {
 			b.zero();
 			b[k] = 1;
@@ -49,8 +50,9 @@ namespace Matrix {
 	}
 
 /*---------------- Pseudo-inverse ----------------*/
-	inline Mat<>& pinv(Mat<>& ans, Mat<>& a) {
-		Mat<> aT;
+	template <typename T>
+	inline Mat<T>& pinv(Mat<T>& ans, Mat<T>& a) {
+		Mat<T> aT;
 		transpose(aT, a);
 		mul(ans, aT, a);
 		inv(ans, ans);

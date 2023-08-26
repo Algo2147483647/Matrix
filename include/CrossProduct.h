@@ -11,11 +11,12 @@ namespace Matrix {
 	*
 	******************************************************************************/
 
-	inline Mat<>& cross(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& cross(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows)
 			exit(-1);
 
-		Mat<> ansTmp(a.rows, a.cols);
+		Mat<T> ansTmp(a.rows, a.cols);
 		ansTmp[0] = a[1] * b[2] - a[2] * b[1];
 		ansTmp[1] = a[2] * b[0] - a[0] * b[2];
 		ansTmp[2] = a[0] * b[1] - a[1] * b[0];
@@ -24,11 +25,12 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& cross(vector<double>& ans, vector<double>& a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& cross(vector<T>& ans, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
 
-		vector<double> ansTmp(a.size());
+		vector<T> ansTmp(a.size());
 		ansTmp[0] = a[1] * b[2] - a[2] * b[1];
 		ansTmp[1] = a[2] * b[0] - a[0] * b[2];
 		ansTmp[2] = a[0] * b[1] - a[1] * b[0];
@@ -37,7 +39,8 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline Mat<>& cross_(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& cross_(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows)
 			exit(-1);
 

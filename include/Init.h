@@ -6,7 +6,8 @@ using namespace std;
 
 namespace Matrix {
 /*---------------- Identity matrix ----------------*/
-inline Mat<>& E(Mat<>& a) {
+template <typename T>
+	inline Mat<T>& E(Mat<T>& a) {
 	a.zero();
 	for (int i = 0; i < a.rows; i++)
 		a(i, i) = 1;
@@ -14,21 +15,24 @@ inline Mat<>& E(Mat<>& a) {
 }
 
 /*---------------- All 1 matrix ----------------*/
-inline Mat<>& ones(Mat<>& a) {
+template <typename T>
+	inline Mat<T>& ones(Mat<T>& a) {
 	a.fill(1);
 	return a;
 }
 
 /*---------------- random matrix ----------------*/
-inline Mat<>& rands(Mat<>& a, double st, double ed) {
+template <typename T>
+	inline Mat<T>& rands(Mat<T>& a, T st, T ed) {
 	for (int i = 0; i < a.size(); i++)
-		a[i] = rand() / double(RAND_MAX) * (ed - st) + st;	//[st,ed)
+		a[i] = rand() / T(RAND_MAX) * (ed - st) + st;	//[st,ed)
 	return a;
 }
 
 /*---------------- Linear spacing vector ----------------*/
-inline Mat<>& linspace(Mat<>& a, double xs, double xe, int n = 2) {
-	double dx = (xe - xs) / (n - 1);
+template <typename T>
+	inline Mat<T>& linspace(Mat<T>& a, T xs, T xe, int n = 2) {
+	T dx = (xe - xs) / (n - 1);
 	a.alloc(n);
 
 	for (int i = 0; i < n; i++)
@@ -38,8 +42,9 @@ inline Mat<>& linspace(Mat<>& a, double xs, double xe, int n = 2) {
 	return a;
 }
 
-inline vector<double>& linspace(vector<double>& a, double xs, double xe, int n = 2) {
-	double dx = (xe - xs) / (n - 1);
+template <typename T>
+	inline vector<T>& linspace(vector<T>& a, T xs, T xe, int n = 2) {
+	T dx = (xe - xs) / (n - 1);
 	a.resize(n);
 
 	for (int i = 0; i < n - 1; i++)
@@ -50,7 +55,8 @@ inline vector<double>& linspace(vector<double>& a, double xs, double xe, int n =
 }
 
 /*---------------- Diagonal matrix ----------------*/
-inline Mat<>& diag(Mat<>& a, Mat<>& b) {
+template <typename T>
+	inline Mat<T>& diag(Mat<T>& a, Mat<T>& b) {
 	if (b.rows == b.cols) {
 		a.alloc(a.rows);
 

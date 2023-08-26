@@ -11,30 +11,23 @@
 * 
 ****************************************************************/
 namespace Matrix{
-Mat<>& rotate	(int i, int j, double theta, 		Mat<>& T);	// 旋转
-Mat<>& rotate	(Mat<>& theta, 						Mat<>& T);	// 旋转
-Mat<>& rotate	(Mat<>& rotateAxis, double theta, 	Mat<>& T);	// 旋转 (3D)
-Mat<>& shear	(int i, int j, double a, 			Mat<>& T);	// 斜切
-Mat<>& scale	(Mat<>& ratio, 						Mat<>& T);	// 缩放
-Mat<>& reflect	(Mat<>& e, 							Mat<>& T);	// 镜像
-Mat<>& project 	(Mat<>& X, 							Mat<>& T);	// 正交投影
-																// 正交化
-
 /****************************************************************
 * 旋转变换
 ****************************************************************/
 // 初等旋转矩阵
-inline Mat<>& Matrix::rotate(int i, int j, double theta, Mat<>& T) {
-    E(T);
-    T(i, i) = T(j, j) = cos(theta);
-    T(i, j) = sin(theta);
-    T(j, i) =-sin(theta);
+template <typename T>
+inline Mat<T>& rotate(int i, int j, double theta, Mat<T>& res) {
+    E(res);
+    res(i, i) = res(j, j) = cos(theta);
+    res(i, j) = sin(theta);
+    res(j, i) =-sin(theta);
     return T;
 }
 
-inline Mat<>& Matrix::rotate(Mat<>& theta, Mat<>& T) {
+template <typename T>
+inline Mat<T>& rotate(Mat<T>& theta, Mat<T>& res) {
     E(T.alloc(theta.rows, theta.cols));
-    Mat<> rotateMat = T;
+    Mat<T> rotateMat = T;
 
     for (int i = 0; i < theta.rows; i++) {
         for (int j = i + 1; j < theta.cols; j++) {
@@ -45,11 +38,12 @@ inline Mat<>& Matrix::rotate(Mat<>& theta, Mat<>& T) {
 }
 
 //3D·四元数
-inline Mat<>& Matrix::rotate(Mat<>& rotateAxis, double theta, Mat<>& T) {
+template <typename T>
+inline Mat<T>& rotate(Mat<T>& rotateAxis, double theta, Mat<T>& res) {
     E(T.alloc(4, 4));
     
     normalize(rotateAxis);
-    static Mat<> q(4), tmp;				//四元数
+    static Mat<T> q(4), tmp;				//四元数
     q = {
         cos(theta / 2),
         sin(theta / 2) * rotateAxis[0],
@@ -60,14 +54,14 @@ inline Mat<>& Matrix::rotate(Mat<>& rotateAxis, double theta, Mat<>& T) {
     // rotate mats
     for (int i = 0; i < 4; i++)
         for (int j = 0; j < 4; j++)
-            T(i, j) = q[((j % 2 == 0 ? 1 : -1) * i + j + 4) % 4];
+            res(i, j) = q[((j % 2 == 0 ? 1 : -1) * i + j + 4) % 4];
 
     for (int i = 1; i < 4; i++)
-        T(i, i % 3 + 1) *= -1;
+        res(i, i % 3 + 1) *= -1;
 
     tmp = T;
     for (int i = 1; i < 4; i++) {
-        T(0, i) *= -1;
+        res(0, i) *= -1;
         tmp(i, 0) *= -1;
     }
 
@@ -78,8 +72,9 @@ inline Mat<>& Matrix::rotate(Mat<>& rotateAxis, double theta, Mat<>& T) {
 /****************************************************************
 * 反射变换
 ****************************************************************/
-inline Mat<>& Matrix::reflect(Mat<>& e, Mat<>& T) {
-    Mat<> tmp;
+template <typename T>
+inline Mat<T>& reflect(Mat<T>& e, Mat<T>& res) {
+    Mat<T> tmp;
 
     transpose(tmp, e);
     mul(T, e, tmp);
@@ -95,24 +90,27 @@ inline Mat<>& Matrix::reflect(Mat<>& e, Mat<>& T) {
 /****************************************************************
 * 斜切变换
 ****************************************************************/
-inline Mat<>& Matrix::shear(int i, int j, double a, Mat<>& T) {
-    E(T);
-    T(i, j) = a;
+template <typename T>
+inline Mat<T>& shear(int i, int j, T a, Mat<T>& res) {
+    E(res);
+    res(i, j) = a;
     return T;
 }
 
 /****************************************************************
 * 缩放变换
 ****************************************************************/
-inline Mat<>& Matrix::scale(Mat<>& ratio, Mat<>& T) {
+template <typename T>
+inline Mat<T>& scale(Mat<T>& ratio, Mat<T>& res) {
     return diag(T, ratio);
 }
 
 /****************************************************************
 * 正交投影
 ****************************************************************/
-inline Mat<>& Matrix::project(Mat<>& X, Mat<>& T) {
-    Mat<> tmp;
+template <typename T>
+inline Mat<T>& project(Mat<T>& X, Mat<T>& res) {
+    Mat<T> tmp;
     transpose(tmp, X);
     mul(T, tmp, X);
 
@@ -128,8 +126,8 @@ inline Mat<>& Matrix::project(Mat<>& X, Mat<>& T) {
 * 正交化
 ****************************************************************/
 /*
-void orthogonalize (Mat<>& A) {
-    Mat<> q;
+void orthogonalize (Mat<T>& A) {
+    Mat<T> q;
     q[0].normalize();
     q[1] -= t1.mul(q[1].dot(q[0]), q[0]);   //施密特正交化
     q[1].normalize();

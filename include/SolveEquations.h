@@ -12,12 +12,13 @@ namespace Matrix {
 	*                    解方程组
 	*
 	******************************************************************************/
-	inline Mat<>& LinearEquations(Mat<>& a, Mat<>& b, Mat<>& x) {
+	template <typename T>
+	inline Mat<T>& LinearEquations(Mat<T>& a, Mat<T>& b, Mat<T>& x) {
 		int n = a.rows;
 		x.zero(n);
 
 		//[1] LUP分解
-		Mat<> L, U, P;
+		Mat<T> L, U, P;
 		LUP(a, L, U, P);
 
 		//[2] LUP - Solve  [3] solve y

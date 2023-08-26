@@ -10,11 +10,10 @@ namespace Matrix {
 *                    行列式
 * 
 ******************************************************************************/
-	double det(Mat<>& a);
-
 	/*----------------余子式 [ comi ]----------------*/
-	inline double comi(Mat<>& a, int i0, int j0) {
-		Mat<> tmp(a.rows - 1, a.cols - 1);
+	template <typename T>
+	inline T comi(Mat<T>& a, int i0, int j0) {
+		Mat<T> tmp(a.rows - 1, a.cols - 1);
 		for (int i = 0; i < a.rows; i++) {
 			for (int j = 0; j < a.cols; j++) {
 				if (i == i0 || j == j0)
@@ -27,7 +26,8 @@ namespace Matrix {
 	}
 
 	/*---------------- determinant ----------------*/
-	inline double det(Mat<>& a) {
+	template <typename T>
+	inline T det(Mat<T>& a) {
 		if (a.rows != a.cols)
 			exit(-1);
 		//加速
@@ -37,10 +37,10 @@ namespace Matrix {
 		if (a.rows == 2)
 			return a(0, 0) * a(1, 1) - a(0, 1) * a(0, 1);
 
-		double ans;
-		memset(&ans, 0, sizeof(double));
+		T ans;
+		memset(&ans, 0, sizeof(T));
 		if (a.rows == 3) {
-			double t;
+			T t;
 			for (int i = 0; i < 3; i++) {
 				t = 1;
 
@@ -61,8 +61,9 @@ namespace Matrix {
 	}
 
 	/*-------------- adjugate matrix ----------------*/
-	inline Mat<>& adjugate(Mat<>& ans, Mat<>& a) {
-		Mat<> ansTmp(a.rows, a.cols);
+	template <typename T>
+	inline Mat<T>& adjugate(Mat<T>& ans, Mat<T>& a) {
+		Mat<T> ansTmp(a.rows, a.cols);
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < a.cols; j++)
 				ansTmp(i, j) = ((i + j) % 2 == 0 ? 1 : -1) * comi(a, i, j);

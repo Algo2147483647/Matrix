@@ -12,20 +12,22 @@ namespace Matrix {
 ******************************************************************************/
 
 	/*---------------- inner product  ----------------*/
-	inline double dot(Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline T dot(Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
-		double ans = 0;
+		T ans = 0;
 
 		for (int i = 0; i < a.size(); i++)
 			ans += a[i] * b[i];
 		return ans;
 	}
 
-	inline double dot(vector<double>& a, vector<double>& b) {
+	template <typename T>
+	inline T dot(vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
-		double ans = 0;
+		T ans = 0;
 
 		for (int i = 0; i < a.size(); i++)
 			ans += a[i] * b[i];
@@ -33,25 +35,30 @@ namespace Matrix {
 	}
 
 	/*---------------- norm ----------------*/
-	inline double norm(Mat<>& a) {
+	template <typename T>
+	inline T norm(Mat<T>& a) {
 		return sqrt(dot(a, a));
 	}
 
-	inline double norm(Mat<>& a, const char ctrl) {
+	template <typename T>
+	inline T norm(Mat<T>& a, const char ctrl) {
 		return sqrt(dot(a, a)); //####
 	}
 
-	inline double norm(vector<double>& a) {
+	template <typename T>
+	inline T norm(vector<T>& a) {
 		return sqrt(dot(a, a));
 	}
 
-	inline double norm(vector<double>& a, const int n) {
+	template <typename T>
+	inline T norm(vector<T>& a, const int n) {
 		return sqrt(dot(a, a)); //####
 	}
 
 	/*---------------- normalize -----------------*/
-	inline Mat<>& normalize(Mat<>& a) {
-		double t = norm(a);
+	template <typename T>
+	inline Mat<T>& normalize(Mat<T>& a) {
+		T t = norm(a);
 		if (t == 0)
 			return a;
 
@@ -61,8 +68,9 @@ namespace Matrix {
 		return a;
 	}
 
-	inline vector<double>& normalize(vector<double>& a) {
-		double t = norm(a);
+	template <typename T>
+	inline vector<T>& normalize(vector<T>& a) {
+		T t = norm(a);
 		if (t == 0)
 			return a;
 

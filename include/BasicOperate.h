@@ -13,7 +13,8 @@ namespace Matrix {
  */
 
 	/*---------------- negative ----------------*/
-	inline Mat<>& negative(Mat<>& ans, Mat<>& a) {
+	template <typename T>
+	inline Mat<T>& negative(Mat<T>& ans, Mat<T>& a) {
 		ans.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
@@ -21,8 +22,9 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline Mat<>& operator-(Mat<>& a) {
-		Mat<> ans;
+	template <typename T>
+	inline Mat<T>& operator-(Mat<T>& a) {
+		Mat<T> ans;
 		ans.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
@@ -31,8 +33,9 @@ namespace Matrix {
 	}
 
 	/*---------------- transpose ----------------*/
-	inline Mat<>& transpose(Mat<>& ans, Mat<>& a) {
-		Mat<> ansTmp(a.cols, a.rows);
+	template <typename T>
+	inline Mat<T>& transpose(Mat<T>& ans, Mat<T>& a) {
+		Mat<T> ansTmp(a.cols, a.rows);
 
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < a.cols; j++)
@@ -43,7 +46,8 @@ namespace Matrix {
 	}
 
 	/*---------------- addition ----------------*/
-	inline Mat<>& add(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& add(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
 
@@ -54,7 +58,8 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& add(vector<double>& ans, vector<double>& a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& add(vector<T>& ans, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size() || a.size() != ans.size())
 			exit(-1);
 
@@ -64,7 +69,8 @@ namespace Matrix {
 	}
 
 	/*---------------- subtraction ----------------*/
-	inline Mat<>& sub(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& sub(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
 		ans.alloc(a.rows, a.cols);
@@ -74,7 +80,8 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& sub(vector<double>& ans, vector<double>& a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& sub(vector<T>& ans, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size() || a.size() != ans.size())
 			exit(-1);
 
@@ -84,10 +91,11 @@ namespace Matrix {
 	}
 
 	/*---------------- multiplication ----------------*/
-	inline Mat<>& mul(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& mul(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.cols != b.rows)
 			exit(-1);
-		Mat<> ansTmp(a.rows, b.cols);
+		Mat<T> ansTmp(a.rows, b.cols);
 
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < b.cols; j++)
@@ -98,10 +106,11 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& mul(vector<double>& ans, Mat<>& a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& mul(vector<T>& ans, Mat<T>& a, vector<T>& b) {
 		if (a.cols != b.size())
 			exit(-1);
-		vector<double> ansTmp(a.rows, 0);
+		vector<T> ansTmp(a.rows, 0);
 
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < a.cols; j++)
@@ -112,7 +121,8 @@ namespace Matrix {
 	}
 
 	// scalar multiplication
-	inline Mat<>& mul(Mat<>& ans, const double a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& mul(Mat<T>& ans, const double a, Mat<T>& b) {
 		ans.alloc(b.rows, b.cols);
 
 		for (int i = 0; i < ans.size(); i++)
@@ -120,14 +130,16 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& mul(vector<double>& ans, const double a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& mul(vector<T>& ans, const double a, vector<T>& b) {
 		for (int i = 0; i < ans.size(); i++)
 			ans[i] = a * b[i];
 		return ans;
 	}
 
 	/*---------------- multiplication of elements, Hadamard product ----------------*/
-	inline Mat<>& elementMul(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& elementMul(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
 		ans.alloc(a.rows, a.cols);
@@ -137,7 +149,8 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& elementMul(vector<double>& ans, vector<double>& a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& elementMul(vector<T>& ans, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
 
@@ -147,7 +160,8 @@ namespace Matrix {
 	}
 
 	/*---------------- division of elements ----------------*/
-	inline Mat<>& elementDiv(Mat<>& ans, Mat<>& a, Mat<>& b) {
+	template <typename T>
+	inline Mat<T>& elementDiv(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
 		ans.alloc(a.rows, a.cols);
@@ -157,7 +171,8 @@ namespace Matrix {
 		return ans;
 	}
 
-	inline vector<double>& elementDiv(vector<double>& ans, vector<double>& a, vector<double>& b) {
+	template <typename T>
+	inline vector<T>& elementDiv(vector<T>& ans, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
 
