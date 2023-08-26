@@ -2,7 +2,7 @@
 #define MATRIX_TRANSFORM_H
 #include "Mat.h"
 #include "Init.h"
-#include "BasicOperate.h"
+#include "BasicAlgebra.h"
 #include "Inner.h"
 
 /****************************************************************
@@ -21,26 +21,26 @@ inline Mat<T>& rotate(int i, int j, double theta, Mat<T>& res) {
     res(i, i) = res(j, j) = cos(theta);
     res(i, j) = sin(theta);
     res(j, i) =-sin(theta);
-    return T;
+    return res;
 }
 
 template <typename T>
 inline Mat<T>& rotate(Mat<T>& theta, Mat<T>& res) {
-    E(T.alloc(theta.rows, theta.cols));
-    Mat<T> rotateMat = T;
+    E(res.alloc(theta.rows, theta.cols));
+    Mat<T> rotateMat = res;
 
     for (int i = 0; i < theta.rows; i++) {
         for (int j = i + 1; j < theta.cols; j++) {
-            mul(T, rotate(i, j, theta(i, j), rotateMat), T);
+            mul(res, rotate(i, j, theta(i, j), rotateMat), res);
         }
     }
-    return T;
+    return res;
 }
 
 //3D·四元数
 template <typename T>
 inline Mat<T>& rotate(Mat<T>& rotateAxis, double theta, Mat<T>& res) {
-    E(T.alloc(4, 4));
+    E(res.alloc(4, 4));
     
     normalize(rotateAxis);
     static Mat<T> q(4), tmp;				//四元数
@@ -65,8 +65,8 @@ inline Mat<T>& rotate(Mat<T>& rotateAxis, double theta, Mat<T>& res) {
         tmp(i, 0) *= -1;
     }
 
-    mul(T, T, tmp);
-    return T;
+    mul(res, res, tmp);
+    return res;
 }
 
 /****************************************************************
@@ -77,14 +77,14 @@ inline Mat<T>& reflect(Mat<T>& e, Mat<T>& res) {
     Mat<T> tmp;
 
     transpose(tmp, e);
-    mul(T, e, tmp);
+    mul(res, e, tmp);
 
-    mul(T, 2, T);
-    tmp.alloc(T.rows);
+    mul(res, 2, res);
+    tmp.alloc(res.rows);
     E(tmp);
 
-    sub(T, tmp, T);
-    return T;
+    sub(res, tmp, res);
+    return res;
 }
 
 /****************************************************************
@@ -94,7 +94,7 @@ template <typename T>
 inline Mat<T>& shear(int i, int j, T a, Mat<T>& res) {
     E(res);
     res(i, j) = a;
-    return T;
+    return res;
 }
 
 /****************************************************************
@@ -102,7 +102,7 @@ inline Mat<T>& shear(int i, int j, T a, Mat<T>& res) {
 ****************************************************************/
 template <typename T>
 inline Mat<T>& scale(Mat<T>& ratio, Mat<T>& res) {
-    return diag(T, ratio);
+    return diag(res, ratio);
 }
 
 /****************************************************************
@@ -112,14 +112,14 @@ template <typename T>
 inline Mat<T>& project(Mat<T>& X, Mat<T>& res) {
     Mat<T> tmp;
     transpose(tmp, X);
-    mul(T, tmp, X);
+    mul(res, tmp, X);
 
-    //# inv(T, T);
-    mul(T, X, T);
+    //# inv(res, res);
+    mul(res, X, res);
 
     transpose(tmp, X);
-    mul(T, T, tmp);
-    return T;
+    mul(res, res, tmp);
+    return res;
 }
 
 /****************************************************************

@@ -1,5 +1,5 @@
-#ifndef MATRIX_OPERATE_BASICOPERATE_H
-#define MATRIX_OPERATE_BASICOPERATE_H
+#ifndef MATRIX_BASIC_ALGEBRA_H
+#define MATRIX_BASIC_ALGEBRA_H
 #include "Mat.h"
 #include "Init.h"
 
@@ -116,7 +116,7 @@ namespace Matrix {
 			for (int j = 0; j < a.cols; j++)
 				ansTmp[i] += a(i, j) * b[j];
 
-		ans = ansTmp;
+		ans = std::move(ansTmp);
 		return ans;
 	}
 

@@ -2,7 +2,7 @@
 #define MATRIX_EIG_H
 #include "Mat.h"
 #include "Init.h"
-#include "BasicOperate.h"
+#include "BasicAlgebra.h"
 
 namespace Matrix {
 	/******************************************************************************

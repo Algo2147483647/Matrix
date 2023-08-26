@@ -1,7 +1,7 @@
 #ifndef LINEAR_ALGEBRA
 #define LINEAR_ALGEBRA
 
-#include "BasicOperate.h"
+#include "BasicAlgebra.h"
 #include "Inner.h"
 #include "Determinant.h"
 #include "Inv.h"

@@ -129,8 +129,8 @@ just like ```std::vector<T>```
       <[Eig.h](Eig.h)>
   * Operation  
     <[Operate.h](Operate.h)>
-    * Basic Operation $(\cdot^T,+,-,\times,/)$   
-      <[BasicOperate.h](BasicOperate.h)>
+    * Basic Algebra $(\cdot^T,+,-,\times,/)$   
+      <[BasicAlgebra.h](BasicAlgebra.h)>
     * Inner Product, Norm $(\|\cdot\|)$, Normalize   
       <[Inner.h](Inner.h)>
     * Cross Product  
@@ -169,7 +169,7 @@ just like ```std::vector<T>```
 | <[Transform.h](Transform.h)> | Transform |
 |**Operate**||
 | <[Operate.h](Operate.h)> | Operate Header |
-| <[BasicOperate.h](BasicOperate.h)> | Basic Operate |
+| <[BasicAlgebra.h](BasicAlgebra.h)> | Basic Operate |
 | <[Inner.h](Inner.h)> | Inner |
 | <[CrossProduct.h](CrossProduct.h)> | Cross Product |
 | <[Conv.h](Conv.h)> | Convolution |

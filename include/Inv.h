@@ -3,7 +3,7 @@
 #include "Mat.h"
 #include "Init.h"
 #include "Decompose.h"
-#include "BasicOperate.h"
+#include "BasicAlgebra.h"
 
 namespace Matrix {
 
