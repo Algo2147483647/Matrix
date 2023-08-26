@@ -33,7 +33,7 @@ namespace Matrix {
 				}
 			}
 		}
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 }

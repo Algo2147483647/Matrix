@@ -1,13 +1,16 @@
 ﻿#ifndef MATRIX_MAT_H
 #define MATRIX_MAT_H
 
+#include <algorithm>
 #include <vector>
 #include <initializer_list>
 
 template <class T = double>
 class Mat {
 public:
-	/*---------------- 元素 (数据堆叠 -- 行优先) ----------------*/
+	/*
+	 * Element (Data Stacking - Row First)
+	 */
 	T* data = NULL;
 	int rows = 0, 
 		cols = 0;
@@ -127,6 +130,22 @@ public:
 		return *this;
 	}
 
+	// Modified function to accept an rvalue reference
+	Mat& operator=(Mat&& other) {
+		if (this != &other) {
+			if (data != NULL)
+				delete data;
+
+			data = other.data;
+			other.data = NULL;
+
+			rows = other.rows;
+			cols = other.cols;
+			other.rows = other.cols = 0;
+		}
+		return *this;
+	}
+
 	Mat& operator=(std::initializer_list<T> list) {
 		int i = 0;
 		for (auto& item : list)
@@ -181,19 +200,6 @@ public:
 		return false;
 	}
 
-	// transfer data by pointers
-	inline Mat& eatMat(Mat& a) {
-		if (data != NULL)
-			delete data;
-		data = a.data;
-		a.data = NULL;
-
-		rows = a.rows;
-		cols = a.cols;
-		a.rows = a.cols = 0;
-
-		return *this;
-	}
 
 };
 

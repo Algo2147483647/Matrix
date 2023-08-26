@@ -1,14 +1,10 @@
 # **Matrix**
 
-# Note
-[Linear Space](../../note/Linear_Space.md)
-
 # Basic Struct  
 |Structure|Mean|
 |---|---|
 |```vector<T>``` | Vector ($\mathbb R^{n}$) |
 |```Mat<T>``` | Matrix ($\mathbb R^{m \times n}$) |
-|||
 
 ## Vector
 just like ```std::vector<T>```

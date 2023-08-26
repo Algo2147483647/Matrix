@@ -130,7 +130,7 @@ namespace Matrix {
 				for (int i = 0; i < a.rows; i++)
 					ansTmp[j] += a(i, j);
 
-			ans.eatMat(ansTmp);
+			ans = std::move(ansTmp);
 			return ans;
 		}
 
@@ -140,7 +140,7 @@ namespace Matrix {
 				for (int j = 0; j < a.cols; j++)
 					ansTmp[i] += a(i, j);
 
-			ans.eatMat(ansTmp);
+			ans = std::move(ansTmp);
 			return ans;
 		}
 		exit(-1);

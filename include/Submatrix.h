@@ -15,7 +15,7 @@ namespace Matrix {
 		for (int i = rowSt; i <= rowEd; i++)
 			for (int j = colSt; j <= colEd; j++)
 				ansTmp(i - rowSt, j - colSt) = a(i, j);
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 
@@ -58,7 +58,7 @@ namespace Matrix {
 			for (int j = 0; j < ansTmp.cols; j++)
 				ansTmp(i, j) = i < a.rows ? a(i, j) : b(i - a.rows, j);
 
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 
@@ -76,7 +76,7 @@ namespace Matrix {
 			for (int j = 0; j < ansTmp.cols; j++)
 				ansTmp(i, j) = j < a.cols ? a(i, j) : b(i, j - a.cols);
 
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 
@@ -94,7 +94,7 @@ namespace Matrix {
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < repeatNum; j++)
 				ansTmp(i, j) = a[i];
-		return ans.eatMat(ansTmp);
+		return ans = std::move(ansTmp);
 	}
 
 }

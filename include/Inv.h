@@ -44,7 +44,7 @@ namespace Matrix {
 				tmp(i, k) = x[i];
 		}
 
-		ans.eatMat(tmp);
+		ans = std::move(tmp);
 		return ans;
 	}
 

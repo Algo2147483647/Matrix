@@ -8,11 +8,9 @@
 using namespace std;
 
 namespace Matrix {
-/******************************************************************************
-* 
-*                    Basic operations of matrix
-* 
-******************************************************************************/
+/*
+ * Basic operations of matrix
+ */
 
 	/*---------------- negative ----------------*/
 	inline Mat<>& negative(Mat<>& ans, Mat<>& a) {
@@ -40,7 +38,7 @@ namespace Matrix {
 			for (int j = 0; j < a.cols; j++)
 				ansTmp(j, i) = a(i, j);
 
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 
@@ -96,7 +94,7 @@ namespace Matrix {
 				for (int k = 0; k < a.cols; k++)
 					ansTmp(i, j) += a(i, k) * b(k, j);
 
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 

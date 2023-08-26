@@ -20,7 +20,7 @@ namespace Matrix {
 		ansTmp[1] = a[2] * b[0] - a[0] * b[2];
 		ansTmp[2] = a[0] * b[1] - a[1] * b[0];
 
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 

@@ -67,7 +67,7 @@ namespace Matrix {
 			for (int j = 0; j < a.cols; j++)
 				ansTmp(i, j) = ((i + j) % 2 == 0 ? 1 : -1) * comi(a, i, j);
 
-		ans.eatMat(ansTmp);
+		ans = std::move(ansTmp);
 		return ans;
 	}
 

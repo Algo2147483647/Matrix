@@ -4,7 +4,7 @@
 #include "Init.h"
 
 namespace Matrix {
-	/*----------------º¯Êý²Ù×÷ [ function ]----------------*/
+	/*---------------- function ----------------*/
 	template<typename F>
 	Mat<>& function(Mat<>& ans, Mat<>& x, F&& f) {
 		ans.alloc(x.rows, x.cols);
