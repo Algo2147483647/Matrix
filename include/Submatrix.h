@@ -8,31 +8,6 @@ namespace Matrix {
 *                    子矩阵
 * 
 ******************************************************************************/
-
-	/*----------------读/写 子矩阵----------------*/
-	inline Mat<>& block(Mat<>& ans, Mat<>& a, int rowSt, int rowEd, int colSt, int colEd) {
-		Mat<> ansTmp(rowEd - rowSt + 1, colEd - colSt + 1);
-		for (int i = rowSt; i <= rowEd; i++)
-			for (int j = colSt; j <= colEd; j++)
-				ansTmp(i - rowSt, j - colSt) = a(i, j);
-		ans = std::move(ansTmp);
-		return ans;
-	}
-
-	inline Mat<>& setBlock(Mat<>& a, Mat<>& b, int rowSt, int colSt, int rowEd = -1, int colEd = -1) {
-		if (rowEd == -1) {
-			for (int i = 0; i < b.rows; i++)
-				for (int j = 0; j < b.cols; j++)
-					a(i + rowSt, j + colSt) = b(i, j);
-		}
-		else {
-			for (int i = rowSt; i <= rowEd; i++)
-				for (int j = colSt; j <= colEd; j++)
-					a(i, j) = b(i - rowSt, j - colSt);
-		}
-		return a;
-	}
-
 	/*----------------拼接----------------*/
 	inline Mat<>& assign(Mat<>& ans, initializer_list<vector<double>> list) {
 		ans.alloc(list.begin()->size(), list.size());

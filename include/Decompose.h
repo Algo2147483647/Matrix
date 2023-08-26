@@ -78,7 +78,7 @@ inline void QR(Mat<>& A, Mat<>& Q, Mat<>& R) {
 
     Mat<> v, e, Ti, T(A.rows, A.cols);
     for (int i = 0; i < A.rows; i++) {
-        block(R, v, i, R.rows - 1, i, i);
+        v.getSubmatrix(R, i, R.rows - 1, i, i);
         e.zero(v.rows);
         e(0) = 1;
 
@@ -88,7 +88,7 @@ inline void QR(Mat<>& A, Mat<>& Q, Mat<>& R) {
 
         reflect(v, Ti);
         E(T);
-        setBlock(T, Ti, i, i);
+        Ti.setSubmatrix(T, i, i);
 
         mul(R, T, R);
         mul(Q, T, Q);
