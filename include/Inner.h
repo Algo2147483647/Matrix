@@ -42,7 +42,46 @@ namespace Matrix {
 
 	template <typename T>
 	inline T norm(Mat<T>& a, const char ctrl) {
-		return sqrt(dot(a, a)); //####
+		switch (ctrl)
+		{
+		case 'F': // Frobenius范数
+			T res = 0;
+
+			for (int i = 0; i < a.rows(); ++i) {
+				for (int j = 0; j < a.cols(); ++j) {
+					res += a(i, j) * a(i, j);
+				}
+			}
+			return sqrt(res);
+		case '1': // 1范数 (列和的最大值)
+		{
+			T maxSum = 0;
+			for (int j = 0; j < a.cols(); ++j) {
+				T colSum = 0;
+				for (int i = 0; i < a.rows(); ++i) {
+					colSum += std::abs(a(i, j));
+				}
+				maxSum = std::max(maxSum, colSum);
+			}
+			return maxSum;
+		}
+		case 'I': // 无穷范数 (行和的最大值)
+		{
+			T maxSum = 0;
+			for (int i = 0; i < a.rows(); ++i) {
+				T rowSum = 0;
+				for (int j = 0; j < a.cols(); ++j) {
+					rowSum += std::abs(a(i, j));
+				}
+				maxSum = std::max(maxSum, rowSum);
+			}
+			return maxSum;
+		}
+		case '2': return sqrt(dot(a, a));
+		default:
+			break;
+		}
+		return 0;
 	}
 
 	template <typename T>
@@ -51,8 +90,26 @@ namespace Matrix {
 	}
 
 	template <typename T>
-	inline T norm(vector<T>& a, const int n) {
-		return sqrt(dot(a, a)); //####
+	inline T norm(vector<T>& a, int p) {
+		switch (p)
+		{
+		case 1:  // L1范数
+			T ret = 0;
+			for (const auto& val : a) {
+				ret += std::abs(val);
+			}
+			return ret;
+		case 2: return sqrt(dot(a, a)); // L2范数
+		case -1:
+			T ret = *std::max_element(a.begin(), a.end(), [](const T& x, const T& y) {
+				return std::abs(x) < std::abs(y);
+			});
+			return std::abs(ret);
+
+		default:
+			break;
+		}
+		return 0;
 	}
 
 	/*---------------- normalize -----------------*/
