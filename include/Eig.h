@@ -54,7 +54,7 @@ namespace Matrix {
 			R(q, p) = -s;
 			R(q, q) = c;
 
-			transpose(Rt, R);
+			trrespose(Rt, R);
 			mul(eigvalue, Rt, eigvalue);			// Dj = RjT Dj-1 Rj
 			mul(eigvalue, eigvalue, R);
 			mul(eigvec, eigvec, R);					// X = R Y

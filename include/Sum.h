@@ -1,7 +1,8 @@
 #ifndef MATRIX_OPERATE_SUM_H
 #define MATRIX_OPERATE_SUM_H
+
+#include <algorithm>
 #include "Mat.h"
-#include "Init.h"
 #include "BasicAlgebra.h"
 
 namespace Matrix {
@@ -30,18 +31,12 @@ namespace Matrix {
 
 	template <typename T>
 	inline T max(vector<T>& a) {
-		T res = a[0];
-		for (int i = 1; i < a.size(); i++)
-			res = res >= a[i] ? res : a[i];
-		return res;
+		return *std::max_element(a.begin(), a.end());
 	}
 
 	template <typename T>
 	inline T min(vector<T>& a) {
-		T res = a[0];
-		for (int i = 1; i < a.size(); i++)
-			res = res <= a[i] ? res : a[i];
-		return res;
+		return *std::min_element(a.begin(), a.end());
 	}
 
 	template <typename T>
@@ -70,57 +65,71 @@ namespace Matrix {
 		return res;
 	}
 
+	template <typename Container>
+	typename Container::value_type max(const Container& a, int& index) {
+		auto it = std::max_element(a.begin(), a.end());
+		index = std::distance(a.begin(), it);
+		return *it;
+	}
+
+	template <typename Container>
+	typename Container::value_type min(const Container& a, int& index) {
+		auto it = std::min_element(a.begin(), a.end());
+		index = std::distance(a.begin(), it);
+		return *it;
+	}
+
 	// 行/列
 	template <typename T>
-	inline Mat<T>& max(Mat<T>& res, Mat<T>& a, int index) {
-		if (index == 0) {
-			res.alloc(a.rows);
+	inline vector<T>& max(vector<T>& res, Mat<T>& a, int dim) {
+		if (dim == 0) {
+			res.resize(a.rows);
 
 			for (int x = 0; x < a.rows; x++)
 				res[x] = a(x, 0);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					res(x) = res(x) >= a(x, y) ? res(x) : a(x, y);
-			return res;
+					res[x] = res[x] >= a(x, y) ? res[x] : a(x, y);
 		}
 		else {
-			res.alloc(1, a.cols);
+			res.resize(a.cols);
 
 			for (int y = 0; y < a.cols; y++)
 				res[y] = a(0, y);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					res(y) = res(y) >= a(x, y) ? res(y) : a(x, y);
-			return res;
+					res[y] = res[y] >= a(x, y) ? res[y] : a(x, y);
 		}
+
+		return res;
 	}
 
 	template <typename T>
-	inline Mat<T>& min(Mat<T>& res, Mat<T>& a, int index) {
-		if (index == 0) {
-			res.alloc(a.rows);
+	inline vector<T>& min(vector<T>& res, Mat<T>& a, int dim) {
+		if (dim == 0) {
+			res.resize(a.rows);
 
 			for (int x = 0; x < a.rows; x++)
 				res[x] = a(x, 0);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					res(x) = res(x) <= a(x, y) ? res(x) : a(x, y);
-			return res;
+					res[x] = res[x] <= a(x, y) ? res[x] : a(x, y);
 		}
 		else {
-			res.alloc(1, a.cols);
+			res.resize(a.cols);
 
 			for (int y = 0; y < a.cols; y++)
 				res[y] = a(0, y);
 
 			for (int x = 0; x < a.rows; x++)
 				for (int y = 0; y < a.cols; y++)
-					res(y) = res(y) <= a(x, y) ? res(y) : a(x, y);
-			return res;
+					res[y] = res[y] <= a(x, y) ? res[y] : a(x, y);
 		}
+
+		return res;
 	}
 
 	/*---------------- 求和 ----------------*/
@@ -133,28 +142,24 @@ namespace Matrix {
 	}
 
 	template <typename T>
-	inline Mat<T>& sum(Mat<T>& res, Mat<T>& a, int dim) {
+	inline vector<T>& sum(vector<T>& res, Mat<T>& a, int dim) {
 		if (dim == 0) {				//对每一列求和
-			Mat<T> resTmp(1, a.cols);
+			res.resize(a.rows);
+			fill(res.begin(), res.end(), 0);
 
 			for (int j = 0; j < a.cols; j++)
 				for (int i = 0; i < a.rows; i++)
-					resTmp[j] += a(i, j);
-
-			res = std::move(resTmp);
-			return res;
+					res[j] += a(i, j);
 		}
+		else {					//对每一行求和
+			res.resize(a.cols);
+			fill(res.begin(), res.end(), 0);
 
-		if (dim == 1) {				//对每一行求和
-			Mat<T> resTmp(a.rows);
 			for (int i = 0; i < a.rows; i++)
 				for (int j = 0; j < a.cols; j++)
-					resTmp[i] += a(i, j);
-
-			res = std::move(resTmp);
-			return res;
+					res[i] += a(i, j);
 		}
-		exit(-1);
+		
 		return res;
 	}
 

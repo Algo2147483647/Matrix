@@ -7,7 +7,7 @@
 
 /****************************************************************
 * 
-* Construction of linear transformation matrix
+* Construction of linear trresformation matrix
 * 
 ****************************************************************/
 namespace Matrix{
@@ -18,9 +18,12 @@ namespace Matrix{
 template <typename T>
 inline Mat<T>& rotate(int i, int j, double theta, Mat<T>& res) {
     E(res);
-    res(i, i) = res(j, j) = cos(theta);
-    res(i, j) = sin(theta);
-    res(j, i) =-sin(theta);
+    double cosTheta = cos(theta);
+    double sinTheta = sin(theta);
+
+    res(i, i) = res(j, j) = cosTheta;
+    res(i, j) =  sinTheta;
+    res(j, i) = -sinTheta;
     return res;
 }
 
@@ -31,41 +34,43 @@ inline Mat<T>& rotate(Mat<T>& theta, Mat<T>& res) {
 
     for (int i = 0; i < theta.rows; i++) {
         for (int j = i + 1; j < theta.cols; j++) {
-            mul(res, rotate(i, j, theta(i, j), rotateMat), res);
+            rotate(i, j, theta(i, j), rotateMat);
+            mul(res, rotateMat, res);
         }
     }
     return res;
 }
 
-//3D·四元数
+//3D·Quaternion
 template <typename T>
-inline Mat<T>& rotate(Mat<T>& rotateAxis, double theta, Mat<T>& res) {
-    E(res.alloc(4, 4));
-    
+inline Mat<T>& rotate(const Mat<T>& rotateAxis, const double theta, Mat<T>& res) {
+    // Quaternion
     normalize(rotateAxis);
-    static Mat<T> q(4), tmp;				//四元数
-    q = {
-        cos(theta / 2),
-        sin(theta / 2) * rotateAxis[0],
-        sin(theta / 2) * rotateAxis[1],
-        sin(theta / 2) * rotateAxis[2]
+    double cosHalfTheta = cos(theta / 2);
+    double sinHalfTheta = sin(theta / 2);
+
+    vector<T> q = {
+        cosHalfTheta,
+        sinHalfTheta * rotateAxis[0],
+        sinHalfTheta * rotateAxis[1],
+        sinHalfTheta * rotateAxis[2]
     };
 
-    // rotate mats
-    for (int i = 0; i < 4; i++)
-        for (int j = 0; j < 4; j++)
-            res(i, j) = q[((j % 2 == 0 ? 1 : -1) * i + j + 4) % 4];
+    // rotate mat
+    E(res.alloc(4, 4));
 
-    for (int i = 1; i < 4; i++)
-        res(i, i % 3 + 1) *= -1;
+    res(0, 0) = 1 - 2 * q[2] * q[2] - 2 * q[3] * q[3];
+    res(0, 1) = 2 * q[1] * q[2] - 2 * q[3] * q[0];
+    res(0, 2) = 2 * q[1] * q[3] + 2 * q[2] * q[0];
 
-    tmp = T;
-    for (int i = 1; i < 4; i++) {
-        res(0, i) *= -1;
-        tmp(i, 0) *= -1;
-    }
+    res(1, 0) = 2 * q[1] * q[2] + 2 * q[3] * q[0];
+    res(1, 1) = 1 - 2 * q[1] * q[1] - 2 * q[3] * q[3];
+    res(1, 2) = 2 * q[2] * q[3] - 2 * q[1] * q[0];
 
-    mul(res, res, tmp);
+    res(2, 0) = 2 * q[1] * q[3] - 2 * q[2] * q[0];
+    res(2, 1) = 2 * q[2] * q[3] + 2 * q[1] * q[0];
+    res(2, 2) = 1 - 2 * q[1] * q[1] - 2 * q[2] * q[2];
+
     return res;
 }
 
@@ -76,7 +81,7 @@ template <typename T>
 inline Mat<T>& reflect(Mat<T>& e, Mat<T>& res) {
     Mat<T> tmp;
 
-    transpose(tmp, e);
+    trrespose(tmp, e);
     mul(res, e, tmp);
 
     mul(res, 2, res);
@@ -111,13 +116,13 @@ inline Mat<T>& scale(Mat<T>& ratio, Mat<T>& res) {
 template <typename T>
 inline Mat<T>& project(Mat<T>& X, Mat<T>& res) {
     Mat<T> tmp;
-    transpose(tmp, X);
+    trrespose(tmp, X);
     mul(res, tmp, X);
 
     //# inv(res, res);
     mul(res, X, res);
 
-    transpose(tmp, X);
+    trrespose(tmp, X);
     mul(res, res, tmp);
     return res;
 }

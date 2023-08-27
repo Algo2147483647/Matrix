@@ -19,13 +19,13 @@ namespace Matrix {
 	 * Binarization
 	 */
 	template <typename T>
-	inline Mat<T>& binarization(Mat<T>& ans, Mat<T>& a, double threshold = 0.5) {
-		ans.alloc(a.rows, a.cols);
+	inline Mat<T>& binarization(Mat<T>& res, Mat<T>& a, double threshold = 0.5) {
+		res.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
-			ans(i) = a(i) >= threshold ? 1 : 0;
+			res(i) = a(i) >= threshold ? 1 : 0;
 
-		return ans;
+		return res;
 	}
 }
 

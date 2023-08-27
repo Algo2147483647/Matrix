@@ -37,8 +37,8 @@ namespace Matrix {
 		if (a.rows == 2)
 			return a(0, 0) * a(1, 1) - a(0, 1) * a(0, 1);
 
-		T ans;
-		memset(&ans, 0, sizeof(T));
+		T res;
+		memset(&res, 0, sizeof(T));
 		if (a.rows == 3) {
 			T t;
 			for (int i = 0; i < 3; i++) {
@@ -46,30 +46,30 @@ namespace Matrix {
 
 				for (int j = 0; j < 3; j++)
 					t *= a(j, (j + i) % 3);
-				ans += t;
+				res += t;
 
 				for (int j = 0; j < 3; j++)
 					t *= a(j, (2 - j + i) % 3);
-				ans -= t;
+				res -= t;
 			}
-			return ans;
+			return res;
 		}
 		//普适
 		for (int i = 0; i < a.rows; i++)
-			ans += a(i, 0) * (i % 2 == 0 ? 1 : -1) * comi(a, i, 0);
-		return ans;
+			res += a(i, 0) * (i % 2 == 0 ? 1 : -1) * comi(a, i, 0);
+		return res;
 	}
 
 	/*-------------- adjugate matrix ----------------*/
 	template <typename T>
-	inline Mat<T>& adjugate(Mat<T>& ans, Mat<T>& a) {
-		Mat<T> ansTmp(a.rows, a.cols);
+	inline Mat<T>& adjugate(Mat<T>& res, Mat<T>& a) {
+		Mat<T> resTmp(a.rows, a.cols);
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < a.cols; j++)
-				ansTmp(i, j) = ((i + j) % 2 == 0 ? 1 : -1) * comi(a, i, j);
+				resTmp(i, j) = ((i + j) % 2 == 0 ? 1 : -1) * comi(a, i, j);
 
-		ans = std::move(ansTmp);
-		return ans;
+		res = std::move(resTmp);
+		return res;
 	}
 
 }

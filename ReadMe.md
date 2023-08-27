@@ -39,7 +39,7 @@ just like ```std::vector<T>```
 * basic operation
   * reshape ```reshape(int)```, ```reshape(int, int)```
   * compare ```==(Mat&)```
-  * transfer data by pointers ```eatMat(Mat&)```
+  * trresfer data by pointers ```eatMat(Mat&)```
   * judge whether cross the border ```isOut(int, int)```
 
 # Linear Space Operations
@@ -53,7 +53,7 @@ just like ```std::vector<T>```
 ## Basic operations of matrix
 * Unary operations
   * negative $- \boldsymbol M$ ```negative(Mat&, Mat&), -(Mat&)```
-  * transpose $\boldsymbol M^T$ ```transpose(Mat&, Mat&)```
+  * trrespose $\boldsymbol M^T$ ```trrespose(Mat&, Mat&)```
   * inverse $M^{-1}$ ```inv(Mat&, Mat&)```
   * pseudo-inverse $M^{+}$ ```pinv(Mat&, Mat&)```
 * Binary operation
@@ -98,7 +98,7 @@ just like ```std::vector<T>```
 * Singular Value Decomposition (SVD) ```SVD(Mat& A, Mat& U, Mat& S, Mat& V)```
 * Full rank decomposition
 
-## Construction of linear transformation matrix
+## Construction of linear trresformation matrix
 * rotate
 * shear
 * scale
@@ -109,7 +109,7 @@ just like ```std::vector<T>```
 * determinant $|\boldsymbol M^{n \times n}|$ ```det(Mat&)```
 * adjugate matrix $\boldsymbol M^*$ ```adjugate(Mat&, Mat&)```
 * cofactor ```comi(Mat&, int, int)```
-* cross product $\boldsymbol v = \boldsymbol v_1 \times \boldsymbol v_2$ ```Mat& cross(Mat& ans, Mat& a, Mat& b)```, ```cross(vector& ans, vector& a, vector& b)```
+* cross product $\boldsymbol v = \boldsymbol v_1 \times \boldsymbol v_2$ ```Mat& cross(Mat& res, Mat& a, Mat& b)```, ```cross(vector& res, vector& a, vector& b)```
 
 # Memory Operations
 * swap two matrix ```swap(Mat&, Mat&)```
@@ -152,8 +152,8 @@ just like ```std::vector<T>```
       <[SolveEquations.h](SolveEquations.h)>
     * Submatrix  
       <[Submatrix.h](Submatrix.h)>
-    * Transform  
-      <[Transform.h](Transform.h)>
+    * Trresform  
+      <[Trresform.h](Trresform.h)>
 
 
 | File | Significance |
@@ -166,7 +166,7 @@ just like ```std::vector<T>```
 | <[Function.h](Function.h)> | Function |
 | <[SolveEquations.h](SolveEquations.h)> | Solve Liner Equations |
 | <[Submatrix.h](Submatrix.h)> | Submatrix |
-| <[Transform.h](Transform.h)> | Transform |
+| <[Trresform.h](Trresform.h)> | Trresform |
 |**Operate**||
 | <[Operate.h](Operate.h)> | Operate Header |
 | <[BasicAlgebra.h](BasicAlgebra.h)> | Basic Operate |

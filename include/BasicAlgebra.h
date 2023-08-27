@@ -1,7 +1,6 @@
 #ifndef MATRIX_BASIC_ALGEBRA_H
 #define MATRIX_BASIC_ALGEBRA_H
 #include "Mat.h"
-#include "Init.h"
 
 #include <vector>
 
@@ -14,171 +13,171 @@ namespace Matrix {
 
 	/*---------------- negative ----------------*/
 	template <typename T>
-	inline Mat<T>& negative(Mat<T>& ans, Mat<T>& a) {
-		ans.alloc(a.rows, a.cols);
+	inline Mat<T>& negative(Mat<T>& res, Mat<T>& a) {
+		res.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
-			ans[i] = -a[i];
-		return ans;
+			res[i] = -a[i];
+		return res;
 	}
 
 	template <typename T>
 	inline Mat<T>& operator-(Mat<T>& a) {
-		Mat<T> ans;
-		ans.alloc(a.rows, a.cols);
+		Mat<T> res;
+		res.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
-			ans[i] = -a[i];
-		return ans;
+			res[i] = -a[i];
+		return res;
 	}
 
-	/*---------------- transpose ----------------*/
+	/*---------------- trrespose ----------------*/
 	template <typename T>
-	inline Mat<T>& transpose(Mat<T>& ans, Mat<T>& a) {
-		Mat<T> ansTmp(a.cols, a.rows);
+	inline Mat<T>& trrespose(Mat<T>& res, Mat<T>& a) {
+		Mat<T> resTmp(a.cols, a.rows);
 
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < a.cols; j++)
-				ansTmp(j, i) = a(i, j);
+				resTmp(j, i) = a(i, j);
 
-		ans = std::move(ansTmp);
-		return ans;
+		res = std::move(resTmp);
+		return res;
 	}
 
 	/*---------------- addition ----------------*/
 	template <typename T>
-	inline Mat<T>& add(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& add(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
 
-		ans.alloc(a.rows, a.cols);
+		res.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
-			ans[i] = a[i] + b[i];
-		return ans;
+			res[i] = a[i] + b[i];
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& add(vector<T>& ans, vector<T>& a, vector<T>& b) {
-		if (a.size() != b.size() || a.size() != ans.size())
+	inline vector<T>& add(vector<T>& res, vector<T>& a, vector<T>& b) {
+		if (a.size() != b.size() || a.size() != res.size())
 			exit(-1);
 
 		for (int i = 0; i < a.size(); i++)
-			ans[i] = a[i] + b[i];
-		return ans;
+			res[i] = a[i] + b[i];
+		return res;
 	}
 
 	/*---------------- subtraction ----------------*/
 	template <typename T>
-	inline Mat<T>& sub(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& sub(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
-		ans.alloc(a.rows, a.cols);
+		res.alloc(a.rows, a.cols);
 
 		for (int i = 0; i < a.size(); i++)
-			ans[i] = a[i] - b[i];
-		return ans;
+			res[i] = a[i] - b[i];
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& sub(vector<T>& ans, vector<T>& a, vector<T>& b) {
-		if (a.size() != b.size() || a.size() != ans.size())
+	inline vector<T>& sub(vector<T>& res, vector<T>& a, vector<T>& b) {
+		if (a.size() != b.size() || a.size() != res.size())
 			exit(-1);
 
 		for (int i = 0; i < a.size(); i++)
-			ans[i] = a[i] - b[i];
-		return ans;
+			res[i] = a[i] - b[i];
+		return res;
 	}
 
 	/*---------------- multiplication ----------------*/
 	template <typename T>
-	inline Mat<T>& mul(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& mul(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.cols != b.rows)
 			exit(-1);
-		Mat<T> ansTmp(a.rows, b.cols);
+		Mat<T> resTmp(a.rows, b.cols);
 
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < b.cols; j++)
 				for (int k = 0; k < a.cols; k++)
-					ansTmp(i, j) += a(i, k) * b(k, j);
+					resTmp(i, j) += a(i, k) * b(k, j);
 
-		ans = std::move(ansTmp);
-		return ans;
+		res = std::move(resTmp);
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& mul(vector<T>& ans, Mat<T>& a, vector<T>& b) {
+	inline vector<T>& mul(vector<T>& res, Mat<T>& a, vector<T>& b) {
 		if (a.cols != b.size())
 			exit(-1);
-		vector<T> ansTmp(a.rows, 0);
+		vector<T> resTmp(a.rows, 0);
 
 		for (int i = 0; i < a.rows; i++)
 			for (int j = 0; j < a.cols; j++)
-				ansTmp[i] += a(i, j) * b[j];
+				resTmp[i] += a(i, j) * b[j];
 
-		ans = std::move(ansTmp);
-		return ans;
+		res = std::move(resTmp);
+		return res;
 	}
 
 	// scalar multiplication
 	template <typename T>
-	inline Mat<T>& mul(Mat<T>& ans, const double a, Mat<T>& b) {
-		ans.alloc(b.rows, b.cols);
+	inline Mat<T>& mul(Mat<T>& res, const double a, Mat<T>& b) {
+		res.alloc(b.rows, b.cols);
 
-		for (int i = 0; i < ans.size(); i++)
-			ans[i] = a * b[i];
-		return ans;
+		for (int i = 0; i < res.size(); i++)
+			res[i] = a * b[i];
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& mul(vector<T>& ans, const double a, vector<T>& b) {
-		for (int i = 0; i < ans.size(); i++)
-			ans[i] = a * b[i];
-		return ans;
+	inline vector<T>& mul(vector<T>& res, const double a, vector<T>& b) {
+		for (int i = 0; i < res.size(); i++)
+			res[i] = a * b[i];
+		return res;
 	}
 
 	/*---------------- multiplication of elements, Hadamard product ----------------*/
 	template <typename T>
-	inline Mat<T>& elementMul(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& elementMul(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
-		ans.alloc(a.rows, a.cols);
+		res.alloc(a.rows, a.cols);
 
-		for (int i = 0; i < ans.size(); i++)
-			ans[i] = a[i] * b[i];
-		return ans;
+		for (int i = 0; i < res.size(); i++)
+			res[i] = a[i] * b[i];
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& elementMul(vector<T>& ans, vector<T>& a, vector<T>& b) {
+	inline vector<T>& elementMul(vector<T>& res, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
 
-		for (int i = 0; i < ans.size(); i++)
-			ans[i] = a[i] * b[i];
-		return ans;
+		for (int i = 0; i < res.size(); i++)
+			res[i] = a[i] * b[i];
+		return res;
 	}
 
 	/*---------------- division of elements ----------------*/
 	template <typename T>
-	inline Mat<T>& elementDiv(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& elementDiv(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
-		ans.alloc(a.rows, a.cols);
+		res.alloc(a.rows, a.cols);
 
-		for (int i = 0; i < ans.size(); i++)
-			ans[i] = a[i] / b[i];
-		return ans;
+		for (int i = 0; i < res.size(); i++)
+			res[i] = a[i] / b[i];
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& elementDiv(vector<T>& ans, vector<T>& a, vector<T>& b) {
+	inline vector<T>& elementDiv(vector<T>& res, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
 
-		for (int i = 0; i < ans.size(); i++)
-			ans[i] = a[i] / b[i];
-		return ans;
+		for (int i = 0; i < res.size(); i++)
+			res[i] = a[i] / b[i];
+		return res;
 	}
 
 }

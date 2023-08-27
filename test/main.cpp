@@ -4,7 +4,7 @@
 using namespace std;
 using namespace Matrix;
 
-void mulTest() {
+void BasicAlgebraTest() {
 	Mat<float> A(10);
 	Mat<float> B(1, 10);
 
@@ -29,5 +29,5 @@ void mulTest() {
 }
 
 int main() {
-	mulTest();
+	BasicAlgebraTest();
 }

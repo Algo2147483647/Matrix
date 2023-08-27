@@ -7,7 +7,7 @@ using namespace std;
 namespace Matrix {
 /*---------------- Identity matrix ----------------*/
 template <typename T>
-	inline Mat<T>& E(Mat<T>& a) {
+inline Mat<T>& E(Mat<T>& a) {
 	a.zero();
 	for (int i = 0; i < a.rows; i++)
 		a(i, i) = 1;
@@ -16,14 +16,14 @@ template <typename T>
 
 /*---------------- All 1 matrix ----------------*/
 template <typename T>
-	inline Mat<T>& ones(Mat<T>& a) {
+inline Mat<T>& ones(Mat<T>& a) {
 	a.fill(1);
 	return a;
 }
 
 /*---------------- random matrix ----------------*/
 template <typename T>
-	inline Mat<T>& rands(Mat<T>& a, T st, T ed) {
+inline Mat<T>& rands(Mat<T>& a, T st, T ed) {
 	for (int i = 0; i < a.size(); i++)
 		a[i] = rand() / T(RAND_MAX) * (ed - st) + st;	//[st,ed)
 	return a;
@@ -31,7 +31,7 @@ template <typename T>
 
 /*---------------- Linear spacing vector ----------------*/
 template <typename T>
-	inline Mat<T>& linspace(Mat<T>& a, T xs, T xe, int n = 2) {
+inline Mat<T>& linspace(Mat<T>& a, T xs, T xe, int n = 2) {
 	T dx = (xe - xs) / (n - 1);
 	a.alloc(n);
 
@@ -43,7 +43,7 @@ template <typename T>
 }
 
 template <typename T>
-	inline vector<T>& linspace(vector<T>& a, T xs, T xe, int n = 2) {
+inline vector<T>& linspace(vector<T>& a, T xs, T xe, int n = 2) {
 	T dx = (xe - xs) / (n - 1);
 	a.resize(n);
 
@@ -56,7 +56,7 @@ template <typename T>
 
 /*---------------- Diagonal matrix ----------------*/
 template <typename T>
-	inline Mat<T>& diag(Mat<T>& a, Mat<T>& b) {
+inline Mat<T>& diag(Mat<T>& a, Mat<T>& b) {
 	if (b.rows == b.cols) {
 		a.alloc(a.rows);
 

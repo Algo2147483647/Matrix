@@ -9,7 +9,7 @@ namespace Matrix {
 
 /*---------------- Inverse ----------------*/
 	template <typename T>
-	inline Mat<T>& inv(Mat<T>& ans, Mat<T>& a) {
+	inline Mat<T>& inv(Mat<T>& res, Mat<T>& a) {
 		if (a.rows != a.cols)
 			exit(-1);
 
@@ -45,20 +45,20 @@ namespace Matrix {
 				tmp(i, k) = x[i];
 		}
 
-		ans = std::move(tmp);
-		return ans;
+		res = std::move(tmp);
+		return res;
 	}
 
 /*---------------- Pseudo-inverse ----------------*/
 	template <typename T>
-	inline Mat<T>& pinv(Mat<T>& ans, Mat<T>& a) {
+	inline Mat<T>& pinv(Mat<T>& res, Mat<T>& a) {
 		Mat<T> aT;
-		transpose(aT, a);
-		mul(ans, aT, a);
-		inv(ans, ans);
-		mul(ans, ans, aT);
+		trrespose(aT, a);
+		mul(res, aT, a);
+		inv(res, res);
+		mul(res, res, aT);
 
-		return ans;
+		return res;
 	}
 }
 

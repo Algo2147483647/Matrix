@@ -16,22 +16,22 @@ namespace Matrix {
 	inline T dot(Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows || a.cols != b.cols)
 			exit(-1);
-		T ans = 0;
+		T res = 0;
 
 		for (int i = 0; i < a.size(); i++)
-			ans += a[i] * b[i];
-		return ans;
+			res += a[i] * b[i];
+		return res;
 	}
 
 	template <typename T>
 	inline T dot(vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
-		T ans = 0;
+		T res = 0;
 
 		for (int i = 0; i < a.size(); i++)
-			ans += a[i] * b[i];
-		return ans;
+			res += a[i] * b[i];
+		return res;
 	}
 
 	/*---------------- norm ----------------*/

@@ -12,43 +12,43 @@ namespace Matrix {
 	******************************************************************************/
 
 	template <typename T>
-	inline Mat<T>& cross(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& cross(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows)
 			exit(-1);
 
-		Mat<T> ansTmp(a.rows, a.cols);
-		ansTmp[0] = a[1] * b[2] - a[2] * b[1];
-		ansTmp[1] = a[2] * b[0] - a[0] * b[2];
-		ansTmp[2] = a[0] * b[1] - a[1] * b[0];
+		Mat<T> resTmp(a.rows, a.cols);
+		resTmp[0] = a[1] * b[2] - a[2] * b[1];
+		resTmp[1] = a[2] * b[0] - a[0] * b[2];
+		resTmp[2] = a[0] * b[1] - a[1] * b[0];
 
-		ans = std::move(ansTmp);
-		return ans;
+		res = std::move(resTmp);
+		return res;
 	}
 
 	template <typename T>
-	inline vector<T>& cross(vector<T>& ans, vector<T>& a, vector<T>& b) {
+	inline vector<T>& cross(vector<T>& res, vector<T>& a, vector<T>& b) {
 		if (a.size() != b.size())
 			exit(-1);
 
-		vector<T> ansTmp(a.size());
-		ansTmp[0] = a[1] * b[2] - a[2] * b[1];
-		ansTmp[1] = a[2] * b[0] - a[0] * b[2];
-		ansTmp[2] = a[0] * b[1] - a[1] * b[0];
+		vector<T> resTmp(a.size());
+		resTmp[0] = a[1] * b[2] - a[2] * b[1];
+		resTmp[1] = a[2] * b[0] - a[0] * b[2];
+		resTmp[2] = a[0] * b[1] - a[1] * b[0];
 
-		ans = std::move(ansTmp);
-		return ans;
+		res = std::move(resTmp);
+		return res;
 	}
 
 	template <typename T>
-	inline Mat<T>& cross_(Mat<T>& ans, Mat<T>& a, Mat<T>& b) {
+	inline Mat<T>& cross_(Mat<T>& res, Mat<T>& a, Mat<T>& b) {
 		if (a.rows != b.rows)
 			exit(-1);
 
-		ans.alloc(a.rows, a.cols);
-		ans[0] = a[1] * b[2] - a[2] * b[1];
-		ans[1] = a[2] * b[0] - a[0] * b[2];
-		ans[2] = a[0] * b[1] - a[1] * b[0];
-		return ans;
+		res.alloc(a.rows, a.cols);
+		res[0] = a[1] * b[2] - a[2] * b[1];
+		res[1] = a[2] * b[0] - a[0] * b[2];
+		res[2] = a[0] * b[1] - a[1] * b[0];
+		return res;
 	}
 
 }

@@ -89,7 +89,7 @@ template <typename T>
         mul(Q, Tm, Q);
     }
 
-    transpose(Q, Q);
+    trrespose(Q, Q);
 }
 
 }
