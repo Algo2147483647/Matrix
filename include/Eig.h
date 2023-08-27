@@ -18,15 +18,13 @@ namespace Matrix {
 		//[1] init
 		int n = a.rows;
 		eigvalue = a;
-		E(eigvec.zero(n, n));
-
-		Mat<T> R, Rt;
+		E(eigvec.alloc(n, n));
 
 		//[2] begin iteration
 		while (true) {
 			//[3] Calculate row p and col q
 			int p, q;
-			double maxelement = eigvalue[1];
+			double maxelement = 0;
 
 			for (int i = 0; i < n; i++) {
 				for (int j = 0; j < n; j++) {
@@ -41,20 +39,21 @@ namespace Matrix {
 				return;			// [2]
 
 			//[4] eigvalue eigvec
-			double theta = 0.5 * atan2(
-				2 * eigvalue(p, q),
-				eigvalue(q, q) - eigvalue(p, p)
-			);
-
+			double theta = 0.5 * atan2(2 * eigvalue(p, q), eigvalue(q, q) - eigvalue(p, p));
 			double c = cos(theta),
 				   s = sin(theta);					// c,s
-			E(R.zero(n, n));
+			Mat<T> R(n, n), Rt(n, n);
+
+			E(R);
 			R(p, p) = c;
 			R(p, q) = s;		// R
 			R(q, p) = -s;
 			R(q, q) = c;
 
-			trrespose(Rt, R);
+			// transpose
+			Rt = R;
+			std::swap(Rt(p, q), Rt(q, p));
+
 			mul(eigvalue, Rt, eigvalue);			// Dj = RjT Dj-1 Rj
 			mul(eigvalue, eigvalue, R);
 			mul(eigvec, eigvec, R);					// X = R Y

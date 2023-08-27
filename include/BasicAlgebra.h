@@ -22,7 +22,7 @@ namespace Matrix {
 	}
 
 	template <typename T>
-	inline Mat<T>& operator-(Mat<T>& a) {
+	inline Mat<T> operator-(Mat<T>& a) {
 		Mat<T> res;
 		res.alloc(a.rows, a.cols);
 
@@ -31,9 +31,9 @@ namespace Matrix {
 		return res;
 	}
 
-	/*---------------- trrespose ----------------*/
+	/*---------------- transpose ----------------*/
 	template <typename T>
-	inline Mat<T>& trrespose(Mat<T>& res, Mat<T>& a) {
+	inline Mat<T>& transpose(Mat<T>& res, Mat<T>& a) {
 		Mat<T> resTmp(a.cols, a.rows);
 
 		for (int i = 0; i < a.rows; i++)

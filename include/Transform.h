@@ -81,7 +81,7 @@ template <typename T>
 inline Mat<T>& reflect(Mat<T>& e, Mat<T>& res) {
     Mat<T> tmp;
 
-    trrespose(tmp, e);
+    transpose(tmp, e);
     mul(res, e, tmp);
 
     mul(res, 2, res);
@@ -116,13 +116,13 @@ inline Mat<T>& scale(Mat<T>& ratio, Mat<T>& res) {
 template <typename T>
 inline Mat<T>& project(Mat<T>& X, Mat<T>& res) {
     Mat<T> tmp;
-    trrespose(tmp, X);
+    transpose(tmp, X);
     mul(res, tmp, X);
 
     //# inv(res, res);
     mul(res, X, res);
 
-    trrespose(tmp, X);
+    transpose(tmp, X);
     mul(res, res, tmp);
     return res;
 }

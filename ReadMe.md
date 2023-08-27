@@ -53,7 +53,7 @@ just like ```std::vector<T>```
 ## Basic operations of matrix
 * Unary operations
   * negative $- \boldsymbol M$ ```negative(Mat&, Mat&), -(Mat&)```
-  * trrespose $\boldsymbol M^T$ ```trrespose(Mat&, Mat&)```
+  * transpose $\boldsymbol M^T$ ```transpose(Mat&, Mat&)```
   * inverse $M^{-1}$ ```inv(Mat&, Mat&)```
   * pseudo-inverse $M^{+}$ ```pinv(Mat&, Mat&)```
 * Binary operation

@@ -16,7 +16,7 @@ namespace Matrix{
  * LUP lower–upper decomposition
  */
 template <typename T>
-	inline void LUP(Mat<T>& a, Mat<T>& L, Mat<T>& U, Mat<T>& P) {
+inline void LUP(Mat<T>& a, Mat<T>& L, Mat<T>& U, Mat<T>& P) {
     if (a.rows != a.cols)
         exit(-1);
 
@@ -66,7 +66,7 @@ template <typename T>
  *  QR decomposition, orthogonal triangular decomposition
  */
 template <typename T>
-	inline void QR(Mat<T>& A, Mat<T>& Q, Mat<T>& R) {
+inline void QR(Mat<T>& A, Mat<T>& Q, Mat<T>& R) {
     R = A;
     Q.zero(A.rows);
     E(Q);
@@ -89,7 +89,23 @@ template <typename T>
         mul(Q, Tm, Q);
     }
 
-    trrespose(Q, Q);
+    transpose(Q, Q);
+}
+
+/*
+ *  SVD decomposition
+ */
+template <typename T>
+inline void SVD(Mat<T>& A, Mat<T>& S, Mat<T>& V, Mat<T>& D) {
+    ;
+}
+
+/*
+ *  Cholesky Decomposition
+ */
+template <typename T>
+inline void CholeskyDecomposition(Mat<T>& A) {
+    ;
 }
 
 }

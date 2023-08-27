@@ -53,7 +53,7 @@ namespace Matrix {
 	template <typename T>
 	inline Mat<T>& pinv(Mat<T>& res, Mat<T>& a) {
 		Mat<T> aT;
-		trrespose(aT, a);
+		transpose(aT, a);
 		mul(res, aT, a);
 		inv(res, res);
 		mul(res, res, aT);
