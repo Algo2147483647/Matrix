@@ -130,20 +130,20 @@ inline Mat<T>& project(Mat<T>& X, Mat<T>& res) {
 /****************************************************************
 * 正交化
 ****************************************************************/
-/*
-void orthogonalize (Mat<T>& A) {
-    Mat<T> q;
-    q[0].normalize();
-    q[1] -= t1.mul(q[1].dot(q[0]), q[0]);   //施密特正交化
-    q[1].normalize();
-    q[2] -= t1.mul(q[2].dot(q[0]), q[0]);
-    q[2] -= t1.mul(q[2].dot(q[1]), q[1]);
-    q[2].normalize();
-    q[3] -= t1.mul(q[3].dot(q[0]), q[0]);
-    q[3] -= t1.mul(q[3].dot(q[1]), q[1]);
-    q[3] -= t1.mul(q[3].dot(q[2]), q[2]);
-    q[3].normalize();
-}*/
+template <typename T>
+inline void orthogonalize (Mat<T>& A) {
+    Mat<T> q(A.rows, A.cols);
+
+    for (int i = 0; i < A.rows; i++) {
+        q[i] = A[i];
+        for (int j = 0; j < i; j++) {
+            q[i] -= q[j] * (dot(q[i], q[j]) / dot(q[j], q[j]));
+        }
+        normalize(q[i]);
+    }
+
+    A = std::move(q);
+}
 
 }
 

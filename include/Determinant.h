@@ -30,31 +30,20 @@ namespace Matrix {
 	inline T det(Mat<T>& a) {
 		if (a.rows != a.cols)
 			exit(-1);
-		//加速
-		if (a.rows == 1)
-			return a[0];
 
-		if (a.rows == 2)
-			return a(0, 0) * a(1, 1) - a(0, 1) * a(0, 1);
-
-		T res;
-		memset(&res, 0, sizeof(T));
-		if (a.rows == 3) {
-			T t;
-			for (int i = 0; i < 3; i++) {
-				t = 1;
-
-				for (int j = 0; j < 3; j++)
-					t *= a(j, (j + i) % 3);
-				res += t;
-
-				for (int j = 0; j < 3; j++)
-					t *= a(j, (2 - j + i) % 3);
-				res -= t;
-			}
-			return res;
+		switch (a.rows) {
+		case 0: return 0;
+		case 1: return a[0];
+		case 2: return a(0, 0) * a(1, 1) - a(0, 1) * a(0, 1);
+		case 3: return 
+			a(0, 0) * (a(1, 1) * a(2, 2) - a(1, 2) * a(2, 1)) -
+			a(0, 1) * (a(1, 0) * a(2, 2) - a(1, 2) * a(2, 0)) +
+			a(0, 2) * (a(1, 0) * a(2, 1) - a(1, 1) * a(2, 0));
+		default:;
 		}
-		//普适
+
+		T res = 0;
+
 		for (int i = 0; i < a.rows; i++)
 			res += a(i, 0) * (i % 2 == 0 ? 1 : -1) * comi(a, i, 0);
 		return res;
