@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <vector>
 #include <initializer_list>
+#include <stdexcept>
 
 template <class T>
 class Mat {
