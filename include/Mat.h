@@ -37,6 +37,10 @@ public:
 		*this = a;
 	}
 
+	Mat(std::initializer_list<std::initializer_list<T>> list) {
+		*this = list;
+	}
+
 	~Mat() { 
 		delete[] data;
 	}
@@ -234,6 +238,23 @@ public:
 		int i = 0;
 		for (auto& item : list)
 			data[i++] = item;
+		return *this;
+	}
+
+	Mat& operator=(std::initializer_list<std::initializer_list<T>> list) {
+		int rows_ = list.size();
+		int cols_ = list.begin()->size();
+		alloc(rows_, cols_);
+
+		if (rows > 0) {
+			data = new T[rows * cols];
+			size_t i = 0;
+			for (const auto& row : list) {
+				for (const auto& item : row) {
+					data[i++] = item;
+				}
+			}
+		}
 		return *this;
 	}
 
