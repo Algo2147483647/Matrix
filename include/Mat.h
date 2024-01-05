@@ -271,7 +271,7 @@ public:
 	}
 
 	// compare
-	bool operator==(const Mat& a) {
+	bool operator==(const Mat& a) const {
 		if (rows != a.rows || cols != a.cols)
 			return false;
 		return memcmp(data, a.data, size() * sizeof(T)) == 0 ? true : false;

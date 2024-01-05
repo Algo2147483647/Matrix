@@ -1,5 +1,8 @@
 .vs/
 
+# 忽略所有 googletest 子模块中的文件和文件夹
+googletest/*
+
 # CMake generated
 CMakeCache.txt
 CMakeFiles/
